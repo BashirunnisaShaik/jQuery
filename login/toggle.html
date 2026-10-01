@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Show More / Show Less</title>
+</head>
+<style>
+    .p{
+        font-size: 20px;
+        line-height: 1.5;
+    }
+    #btn{
+        margin-top: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
+<body>
+
+    <p class="p">
+        This is a paragraph.
+        <span id="more" style="display:none;">
+            This is the additional content of the paragraph.
+        </span>
+    </p>
+
+    <button id="btn" onclick="toggleText()">Show More</button>
+
+    <script>
+        function toggleText() {
+            let text = document.getElementById("more");
+            let button = document.getElementById("btn");
+
+            if (text.style.display === "none") {
+                text.style.display = "inline";
+                button.innerHTML = "Show Less";
+            } else {
+                text.style.display = "none";
+                button.innerHTML = "Show More";
+            }
+        }
+    </script>
+
+</body>
+</html>

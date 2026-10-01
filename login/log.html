@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup and Login</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: white;
+        }
+        .box {
+            width: 300px;
+            margin: 100px auto;
+            padding: 20px;
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 30px;
+           cursor: pointer;
+            margin: 10px auto;
+            display:block;
+        }
+        #login {
+            display: none;
+        }
+        #signup {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <!-- SIGNUP FIRST -->
+        <div id="signup">
+            <h2>Sign Up</h2>
+            <input type="text" id="signupUser" placeholder="Username">
+            <input type="password" id="signupPass" placeholder="Password">
+            <input type="password" id="confirmPass" placeholder="Confirm Password">
+            <button onclick="signup()">Sign Up</button>
+            <p id="signupMessage"></p>
+            <p>
+                Already have an account?
+              
+              <a href="#" onclick="showLogin()">Login</a>
+            </p>
+        </div>
+        <!-- LOGIN -->
+        <div id="login">
+
+            <h2>Login</h2>
+            <input type="text" id="loginUser" placeholder="Username">
+           <input type="password" id="loginPass" placeholder="Password">
+            <button onclick="login()">Login</button>
+            <p id="loginMessage"></p>
+            <p>
+                Don't have an account?
+                <a href="#" onclick="showSignup()">Sign Up</a>
+            </p>
+        </div>
+    </div>
+   <script>
+
+        function showLogin() {
+            document.getElementById("signup").style.display = "none";
+            document.getElementById("login").style.display = "block";
+        }
+        function showSignup() {
+            document.getElementById("login").style.display = "none";
+            document.getElementById("signup").style.display = "block";
+        }
+        function signup() {
+           let username = document.getElementById("signupUser").value;
+            let password = document.getElementById("signupPass").value;
+            let confirm = document.getElementById("confirmPass").value;
+
+            if (username == "" || password == "" || confirm == "") {
+                document.getElementById("signupMessage").innerHTML =
+                    "Please fill all fields";
+                return;
+            }
+
+            if (password.length < 6) {
+                document.getElementById("signupMessage").innerHTML =
+                    "Password must be at least 6 characters";
+                return;
+            }
+            if (password != confirm) {
+                document.getElementById("signupMessage").innerHTML =
+                    "Passwords do not match";
+                return;
+            }
+            localStorage.setItem("username", username);
+            localStorage.setItem("password", password);
+            document.getElementById("signupMessage").innerHTML =
+                "Signup successful!";
+
+            setTimeout(showLogin, 1000);
+        }
+        function login() {
+
+            let username = document.getElementById("loginUser").value;
+            let password = document.getElementById("loginPass").value;
+            let savedUser = localStorage.getItem("username");
+            let savedPass = localStorage.getItem("password");
+            if (username == savedUser && password == savedPass) {
+                document.getElementById("loginMessage").innerHTML =
+                    "Login successful!";
+            } else {
+                document.getElementById("loginMessage").innerHTML =
+                    "Invalid username or password";
+            }
+        }
+    </script>
+</body>
+</html>
